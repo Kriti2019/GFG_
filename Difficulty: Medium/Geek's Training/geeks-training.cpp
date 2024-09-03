@@ -18,7 +18,7 @@ class Solution {
   // Iterate through the days starting from day 1
   for (int day = 1; day < n; day++) {
     for (int last = 0; last < 4; last++) {
-      dp[day][last] = 0;
+      
       // Iterate through the tasks for the current day
       for (int task = 0; task <= 2; task++) {
         if (task != last) {
