@@ -6,24 +6,23 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int minimizeCost(vector<int>& arr, int& k) {
+    int minimizeCost(int k, vector<int>& arr) {
         // Code here
-        int n= arr.size();
-        vector <int> dp(n,0);
-        dp[0]=0;
-        
-        int jump;
-        
-        for(int i=1;i<n;i++){
-            int minsteps=INT_MAX;
-            for(int j=1;j<=k;j++){
-                if((i-j)>=0)jump=dp[i-j]+abs(arr[i]-arr[i-j]);
-                minsteps=min(minsteps,jump);
+        int n = arr.size();
+    std::vector<int> dp(n, INT_MAX);  // Initialize dp array with a large value
+    dp[0] = 0;  // Starting point, no cost to be on the first stone
+
+    // Fill the dp table
+    for (int i = 1; i < n; ++i) {
+        // Check all possible jumps from stone i-k to i-1
+        for (int j = 1; j <= k; ++j) {
+            if (i - j >= 0) {
+                dp[i] = std::min(dp[i], dp[i - j] + std::abs(arr[i] - arr[i - j]));
             }
-            dp[i]=minsteps;
         }
-        return dp[n-1];
-        
+    }
+    
+    return dp[n - 1]; 
     }
 };
 
@@ -46,7 +45,7 @@ int main() {
             arr.push_back(number);
         }
         Solution obj;
-        int res = obj.minimizeCost(arr, k);
+        int res = obj.minimizeCost(k, arr);
         cout << res << endl;
         // string tl;
         // getline(cin, tl);
