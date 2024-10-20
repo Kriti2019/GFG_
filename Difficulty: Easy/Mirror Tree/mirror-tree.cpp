@@ -112,19 +112,27 @@ class Solution {
     // Function to convert a binary tree into its mirror tree.
     void mirror(Node* node) {
         // code here
-         // Base case: If the node is NULL, do nothing
-        if (node == NULL) {
-            return;
+         if (node == nullptr) return;
+
+        // Initialize a queue for level-order traversal
+        std::queue<Node*> q;
+        q.push(node);
+
+        while (!q.empty()) {
+            Node* current = q.front();
+            q.pop();
+
+            // Swap the left and right child of the current node
+            Node* temp = current->left;
+            current->left = current->right;
+            current->right = temp;
+
+            // Enqueue left and right children
+            if (current->left)
+                q.push(current->left);
+            if (current->right)
+                q.push(current->right);
         }
-        
-        // Recursively mirror the left and right subtrees
-        mirror(node->left);
-        mirror(node->right);
-        
-        // Swap the left and right children
-        Node* temp = node->left;
-        node->left = node->right;
-        node->right = temp;
     }
 };
 
