@@ -5,33 +5,29 @@ using namespace std;
 
 // } Driver Code Ends
 
+#include<sstream>
 class Solution {
   public:
     // Function to reverse words in a given string.
     string reverseWords(string str) {
         // code here
-        vector<string> words;
-    string word;
-    stringstream ss(str);
-
-    // Split the input string into words based on the dot delimiter
-    while (getline(ss, word, '.')) {
-        words.push_back(word);
-    }
-
-    // Reverse the vector of words
-    reverse(words.begin(), words.end());
-
-    // Join the words back into a single string separated by dots
-    string result;
-    for (int i = 0; i < words.size(); i++) {
-        result += words[i];
-        if (i != words.size() - 1) {
-            result += '.';
+        stringstream ss(str);
+        vector<string>s;
+        string word;
+        while(getline(ss, word, '.')){
+            s.push_back(word);
         }
-    }
-
-    return result;
+        reverse(s.begin(),s.end());
+        
+        string ans;
+        for (size_t i = 0; i < s.size(); ++i) {
+            ans += s[i];
+            if (i < s.size() - 1) {
+                ans += '.';
+            }
+        }
+     return ans;   
+        
     }
 };
 
@@ -44,6 +40,9 @@ int main() {
         cin >> s;
         Solution obj;
         cout << obj.reverseWords(s) << endl;
+
+        cout << "~"
+             << "\n";
     }
 }
 // } Driver Code Ends
