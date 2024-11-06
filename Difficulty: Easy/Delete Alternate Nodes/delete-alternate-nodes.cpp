@@ -30,28 +30,17 @@ struct Node
 // Complete this function
 class Solution {
   public:
-    void deleteAlt(struct Node *head) {
+    void deleteAlt(struct Node *node) {
         // Code here
-        if (head == NULL || head->next == NULL) {
-            return;
-        }
-
-        Node *current = head;
-
-        // Traverse the list and delete alternate nodes
-        while (current != NULL && current->next != NULL) {
-            // Get the next node which is to be deleted
-            Node *nodeToDelete = current->next;
-
-            // Skip the next node (delete it)
-            current->next = nodeToDelete->next;
-
-            // Free the memory of the node to be deleted (optional in managed languages)
-            delete nodeToDelete;
-
-            // Move to the next node which is to be retained
-            current = current->next;
-        }
+         if (node == nullptr || node->next == nullptr) {
+        return;
+    }
+    
+    Node* temp = node->next;
+    node->next = temp->next;
+    delete temp;
+    
+    deleteAlt(node->next);
     }
 };
 
@@ -118,6 +107,7 @@ int main() {
         Solution ob;
         ob.deleteAlt(head);
         printList(head);
+        cout << "~\n";
     }
     return 0;
 }
