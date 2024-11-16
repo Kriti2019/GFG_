@@ -35,6 +35,8 @@ while(t--)
 	}
 	ss->sort();
 	printStack(ss->s);
+
+cout << "~" << "\n";
 }
 }
 // } Driver Code Ends
@@ -50,33 +52,34 @@ public:
 
 /* The below method sorts the stack s 
 you are required to complete the below method */
-void insert(stack<int>& s,int val){
-    
-    if(s.empty() || s.top()<= val){s.push(val);return;}
-    
-    int temp = s.top();
-    s.pop();
-    insert(s,val);
-    s.push(temp);
-    
-    return ;
+
+// Function to insert an element in a sorted manner
+void sortedInsert(stack<int> &s, int element) {
+    // Base case: If stack is empty or top element is smaller than element
+    if (s.empty() || s.top() <= element) {
+        s.push(element);
+    } else {
+        // If top is greater, pop the top and recurse
+        int top = s.top();
+        s.pop();
+        sortedInsert(s, element);
+        
+        // Push the popped element back
+        s.push(top);
+    }
 }
 
-void sorting(stack<int>& s){
-    if(s.size()==1){return ;}
-    
-    int v = s.top();
-    s.pop();
-    
-    sorting(s);
-    insert(s,v);
-    
-    return ;
-}
-
-/* The below method sorts the stack s 
-you are required to complete the below method */
-void SortedStack :: sort()
-{
-   sorting(s);
+// Function to sort the stack using recursion
+void SortedStack::sort() {
+    if (!s.empty()) {
+        // Pop the top element
+        int top = s.top();
+        s.pop();
+        
+        // Sort the remaining stack
+        sort();
+        
+        // Insert the popped element back in sorted order
+        sortedInsert(s, top);
+    }
 }
