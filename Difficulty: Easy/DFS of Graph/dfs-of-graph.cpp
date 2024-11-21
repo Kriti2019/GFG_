@@ -10,7 +10,7 @@ public:
     void dfs(int node, vector<int>& ls, vector<vector<int>>& adj, vector<int>& vis) {
         vis[node] = 1;  // Mark the node as visited
         ls.push_back(node);  // Add the current node to the DFS result
-        for (auto neighbor : adj[node]) {  // Iterate through neighbors of the current node
+        for (auto &neighbor : adj[node]) {  // Iterate through neighbors of the current node
             if (!vis[neighbor]) {  // If the neighbor is not visited
                 dfs(neighbor, ls, adj, vis);  // Recursively visit the neighbor
             }
