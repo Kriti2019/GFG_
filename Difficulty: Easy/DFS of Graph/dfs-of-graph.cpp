@@ -2,35 +2,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
+
 class Solution {
-  private: 
-    void dfs(int node, vector<int> adj[], int vis[], vector<int> &ls) {
-        vis[node] = 1; 
-        ls.push_back(node); 
-        // traverse all its neighbours
-        for(auto it : adj[node]) {
-            // if the neighbour is not visited
-            if(!vis[it]) {
-                dfs(it, adj, vis, ls); 
+public:
+    void dfs(int node, vector<int>& ls, vector<vector<int>>& adj, vector<int>& vis) {
+        vis[node] = 1;  // Mark the node as visited
+        ls.push_back(node);  // Add the current node to the DFS result
+        for (auto neighbor : adj[node]) {  // Iterate through neighbors of the current node
+            if (!vis[neighbor]) {  // If the neighbor is not visited
+                dfs(neighbor, ls, adj, vis);  // Recursively visit the neighbor
             }
         }
     }
-  public:
-    // Function to return a list containing the DFS traversal of the graph.
-    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
-        // Code here
-        int vis[V]={0};
-        int start = 0;
-        // create a list to store dfs
-        vector<int> ls; 
-        // call dfs for starting node
-        dfs(start, adj, vis, ls); 
-        return ls; 
+
+    vector<int> dfsOfGraph(vector<vector<int>>& adj) {
+        int V = adj.size();  // Number of vertices in the graph
+        vector<int> vis(V, 0);  // Visited array to track visited nodes
+        vector<int> ls;  // To store the DFS traversal order
+
+        // Start DFS from node 0 (assuming connected graph starting from node 0)
+        dfs(0, ls, adj, vis);
+
+        return ls;  // Return the DFS traversal order
     }
 };
 
+
 //{ Driver Code Starts.
+
 int main() {
     int tc;
     cin >> tc;
@@ -38,7 +39,8 @@ int main() {
         int V, E;
         cin >> V >> E;
 
-        vector<int> adj[V];
+        vector<vector<int>> adj(
+            V); // Use vector of vectors instead of array of vectors.
 
         for (int i = 0; i < E; i++) {
             int u, v;
@@ -46,15 +48,16 @@ int main() {
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        // string s1;
-        // cin>>s1;
+
         Solution obj;
-        vector<int> ans = obj.dfsOfGraph(V, adj);
+        vector<int> ans = obj.dfsOfGraph(adj);
         for (int i = 0; i < ans.size(); i++) {
             cout << ans[i] << " ";
         }
         cout << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
+
 // } Driver Code Ends
