@@ -9,23 +9,32 @@ using namespace std;
 class Solution {
   public:
     // Function to find the sum of contiguous subarray with maximum sum.
-    long long maxSubarraySum(vector<int> &arr) {
+    int maxSubarraySum(vector<int> &arr) {
         // code here...
-        // Initialize currentSum and maxSum to the first element of the array
-        long long currentSum = arr[0];
-        long long maxSum = arr[0];
-        
-        // Iterate through the array starting from the second element
-        for (size_t i = 1; i < arr.size(); i++) {
-            // Either add the current element to the current sum, or start a new sum with the current element
-            currentSum = std::max((long long)arr[i], currentSum + arr[i]);
-            
-            // Update maxSum if currentSum is greater than maxSum
-            maxSum = std::max(maxSum, currentSum);
+        long long maxi = LONG_MIN; // maximum sum
+    long long sum = 0;
+    int n=arr.size();
+
+    for (int i = 0; i < n; i++) {
+
+        sum += arr[i];
+
+        if (sum > maxi) {
+            maxi = sum;
         }
-        
-        // Return the maximum sum found
-        return maxSum;
+
+        // If sum < 0: discard the sum calculated
+        if (sum < 0) {
+            sum = 0;
+        }
+    }
+
+    // To consider the sum of the empty subarray
+    // uncomment the following check:
+
+    //if (maxi < 0) maxi = 0;
+
+    return maxi;
     }
 };
 
